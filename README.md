@@ -6,7 +6,7 @@ This is the repo of the medical dialogue dataset <imcs21> in CBLUE@Tianchi
 随着“互联网+医疗”的迅速发展，在线问诊平台逐渐兴起，在线问诊是指医生通过对话和患者进行病情的交流、 疾病的诊断并且提供相关的医疗建议。
 在政策和疫情的影响之下，在线问诊需求增长迅速。然而医生资源是稀缺的， 由此促使了自动化医疗问诊的发展，以人机对话来辅助问诊过程。
 
-### 任务1：[医疗命名实体识别]（https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1)
+### 任务1：医疗命名实体识别([IMCS-NER]（https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1))
 
 医疗命名实体广泛存在于医患对话中，它们是理解对话意图的关键因素，也是构建智能医疗对话系统的基础任务。
 本数据集对 **3,052** 个完整的医疗对话（共 **123,762** 条句子）中的命名实体进行了**字级别**的标注，共包含**5类**命名实体，
@@ -23,7 +23,7 @@ This is the repo of the medical dialogue dataset <imcs21> in CBLUE@Tianchi
 | 患者：给喝过小儿咳喘灵，阿莫西林颗粒 | O O O O O O B-Drug I-Drug I-Drug I-Drug O B-Drug I-Drug I-Drug I-Drug I-Drug I-Drug |
 | ...                                  | ...                                                                                 |
 
-### 任务2：[症状识别]（https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2)
+### 任务2：症状识别([IMCS-SR]（https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2))
 
 症状是医患对话中主要讨论的话题之一，病人的症状信息也是对话策略和疾病诊断的关键特征。使用BIO标注可以找出症状实体所在的位置，
 然而在实际应用中，还存在两个问题：
@@ -44,7 +44,7 @@ This is the repo of the medical dialogue dataset <imcs21> in CBLUE@Tianchi
 }
 ```
 
-### 任务3：[医疗报告生成]（https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3)
+### 任务3：医疗报告生成([IMCS-MRG]（https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3))
 
 医疗报告是医生对病人健康状况的总结，是医疗诊断过程的重要环节。本数据集对 **3,052** 个完整的医疗对话手动标注了相应的医疗报告。
 标注方式采用**对话级标注**，即对于每个医疗对话，分别有2个标注者阅读完整的医疗对话，并编写具有规定格式的医疗报告，即一个对话具有两个供参考的医疗报告。
