@@ -3,11 +3,11 @@
 这是CBLUE@Tianchi中医疗对话数据集 **IMCS21** 的仓库，本仓库包含：
 
 - 背景介绍
-- CBLUE 评测任务
+- CBLUE 评测任务介绍
 - 基线模型代码
-- 数据集统计
+- 数据集介绍
 - 多级数据注释
-
+- 数据格式
 
 ### 背景介绍
 
@@ -23,7 +23,7 @@
 | 任务二  | 症状识别   | IMCS-SR  | 根据医患对话文本，识别出病人具有的症状信息（包含归一化标签和类别标签）。 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2 |
 | 任务三  | 诊疗报告生成 | IMCS-MRG | 依据病人自述和医患对话，输出具有规定格式的医疗报告。           | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3 |
 
-### 数据集统计
+### 数据集介绍
 
 **IMCS21** 包含 **3,052** 组细粒度标注的医患对话案例样本，覆盖 **6** 种儿科疾病，详细统计数据如下表所示。
 
@@ -109,3 +109,105 @@
 | 辅助检查 | Auxiliary       | 对话中病人涉及过的医疗检查的总结。     |
 | 诊断   | Diagnosis       | 对话中医生对病人的诊断结果的总结。     |
 | 建议   | Suggestions     | 对话中医生对病人的建议的总结。       |
+
+
+### 数据格式
+
+#### 训练集 
+
+文件名为为 *train.json*，共 **2,440** 条样本，其格式如下。
+
+```
+{
+  "example_id1":{	                # 样本id
+      "diagnosis":	                # 患者疾病类别
+      "self-report":	            # 自诉，病人对自己病情的陈述及对医生的提问
+      "dialogue":[	                # 对话内容
+        {
+          "sentence_id":	        # 对话轮次的序号
+          "speaker":		        # 医生或者患者
+          "sentence":		        # 当前对话文本内容
+          "dialogue_act":	        # 话语行为
+          "BIO_label":	            # BIO实体标签（以“空格”连接）
+          "symptom_norm":	        # 归一化的症状（与BIO中的症状出现的顺序对应）
+          "symptom_type":	        # 症状类别（与BIO中的症状出现的顺序对应）
+        },
+        {	
+          "sentence_id":
+          "speaker":
+          "sentence":
+          "dialogue_act":
+          "BIO_label":
+          "symptom_norm":	
+          "symptom_type":
+        },
+        ...
+      ]
+      "report":		                # 诊疗报告 [report1, report2]
+      "implicit_info":{
+          "Symptom": 	            # 整组对话的症状标签，字典格式，键为症状的归一化标签，值为症状的类别标签
+      }
+  }
+  "example_id2":{
+      ...
+  }
+  ...
+}
+```
+
+#### 测试集
+
+文件名为为 *test_input.json*，共 **612** 条样本，其格式如下。
+
+```
+{
+  "example_id1":{	                # 样本id
+      "self-report":	            # 自诉，病人对自己病情的陈述及对医生的提问
+      "dialogue":[	                # 对话内容
+        {
+          "sentence_id":	        # 对话轮次的序号
+          "speaker":		        # 医生或者患者
+          "sentence":		        # 当前对话文本内容
+        },
+        {	
+          "sentence_id":
+          "speaker":
+          "sentence":
+        },
+        ...
+      ]
+  }
+  "example_id2":{
+      ...
+  }
+  ...
+}
+```
+
+#### 建议的数据划分（optional）
+
+文件名为为 *split.csv*，建议的训练集与验证集划分，本仓库代码依赖该文件，其格式如下。
+
+```
+example_id    split
+10712402      train
+10872941      train
+...
+10355967      dev
+10291187      dev
+...
+10115809      test
+10729578      test
+...
+```
+
+#### 归一化的症状词典（optional）
+
+文件名为为 *symptom_norm.csv*，所有的归一化后的症状词典，本仓库代码依赖该文件，其格式如下。
+
+```
+norm
+稀便
+大便粘液
+...
+```
