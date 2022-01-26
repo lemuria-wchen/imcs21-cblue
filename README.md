@@ -12,6 +12,17 @@ This is the repo of the medical dialogue dataset <imcs21> in CBLUE@Tianchi
 本数据集对 **3,052** 个完整的医疗对话（共 **123,762** 条句子）中的命名实体进行了**字级别**的标注，共包含**5类**命名实体，
 标注方式采用*BIO三位标注*（其中B-X代表实体X的开头，I-X代表实体的结尾，O代表不属于任何类型）。
 
+
+| Input（对话）                    | Output （BIO标签）                                                              |
+| ------------------------------------ |:------------------------------------------------------------------------------------|
+| ...                                  | ...                                                                                 |
+| 医生：有没有发热             | O O O O O O O B-Symptom I-Symptom                                                   |
+| 患者：没有                      | O O O O O                                                                           |
+| ...                                  | ...                                                                                 |
+| 医生：用过什么药物          | O O O O O O O O O                                                                   |
+| 患者：给喝过小儿咳喘灵，阿莫西林颗粒 | O O O O O O B-Drug I-Drug I-Drug I-Drug O B-Drug I-Drug I-Drug I-Drug I-Drug I-Drug |
+| ...                                  | ...                                                                                 |
+
 ### 任务2：[症状识别]（https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2)
 
 症状是医患对话中主要讨论的话题之一，病人的症状信息也是对话策略和疾病诊断的关键特征。使用BIO标注可以找出症状实体所在的位置，
