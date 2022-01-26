@@ -17,7 +17,7 @@
 
 ### 提交文件格式
 
-**IMCS-NER** 任务要求提交文件为 **json** 格式，具体格式如下：
+**IMCS-NER** 任务要求提交文件为 **json** 格式，一个样例提交文件可以在 [这里]() 找到，具体格式如下。
 
 ```
 {
@@ -33,14 +33,12 @@
 }
 ```
 
-[//]: # (一个具体的提交文件可以在[这里]&#40;&#41;找到。)
-
 ### 评价方式
 
-**IMCS-NER** 任务采用 **F1 score** 作为评价指标，详细见文件 `eval_track1_task1.py`, 运行方式如下：
+**IMCS-NER** 任务采用 **F1 score** 作为评价指标，详细见文件 `eval_task1.py`, 运行方式如下：
 
 ```
-python eval_track1_task1.py {gold_data_path} {pred_data_path}
+python eval_task1.py {gold_data_path} {pred_data_path}
 ```
 
 ### 基线模型
