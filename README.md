@@ -11,17 +11,17 @@
 
 ### 背景介绍
 
-随着"互联网+医疗"的迅速发展，在线问诊平台逐渐兴起，在线问诊是指医生通过对话和患者进行病情的交流、 疾病的诊断并且提供相关的医疗建议。在政策和疫情的影响之下，在线问诊需求增长迅速。然而医生资源是稀缺的，由此促使了**自动化医疗问诊**的发展，以人机对话来辅助问诊过程。为了促进智能医疗咨询系统（Intelligent Medical Consultation System, IMCS），我们构建了 **IMCS21** 数据集，该数据集收集了真实的在线医患对话，并进行了多层次（Multi-Level）的人工标注，包含**命名实体**、**对话意图**、**症状标签**、**诊疗报告**等，我们将该数据集接入 **[CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge)** 评测平台，希望可以共同促进智能医疗、医学语言理解等领域的发展。
+随着"互联网+医疗"的迅速发展，在线问诊平台逐渐兴起，在线问诊是指医生通过对话和患者进行病情的交流、 疾病的诊断并且提供相关的医疗建议。在政策和疫情的影响之下，在线问诊需求增长迅速。然而医生资源是稀缺的，由此促使了**自动化医疗问诊**的发展，以人机对话来辅助问诊过程。为了促进智能医疗咨询系统（Intelligent Medical Consultation System, IMCS），我们构建了 **IMCS21** 数据集，该数据集收集了真实的在线医患对话，并进行了多层次（Multi-Level）的人工标注，包含**命名实体**、**对话意图**、**症状标签**、**医疗报告**等，我们将该数据集接入 **[CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge)** 评测平台，希望可以共同促进智能医疗、医学语言理解等领域的发展。
 
 ### CBLUE 评测任务
 
-**IMCS21** 目前在 [CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge) 评测平台上接入了三个任务，分别为：命名实体识别、症状识别和诊疗报告生成。
+**IMCS21** 目前在 [CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge) 评测平台上接入了三个任务，分别为：命名实体识别、症状识别和医疗报告生成。
 
 | 任务编号 | 任务名称   | 简称       | 任务描述                                 | 链接                                                            |
 |------|--------|----------|--------------------------------------|---------------------------------------------------------------|
 | 任务一  | 命名实体识别 | IMCS-NER | 从医患对话文本中识别出五类重要的医疗相关实体。              | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1 |
 | 任务二  | 症状识别   | IMCS-SR  | 根据医患对话文本，识别出病人具有的症状信息（包含归一化标签和类别标签）。 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2 |
-| 任务三  | 诊疗报告生成 | IMCS-MRG | 依据病人自述和医患对话，输出具有规定格式的医疗报告。           | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3 |
+| 任务三  | 医疗报告生成 | IMCS-MRG | 依据病人自述和医患对话，输出具有规定格式的医疗报告。           | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3 |
 
 ### 数据集介绍
 
@@ -96,11 +96,11 @@
 | 类别标签  | symptom_type   | "0" 代表确定病人没有患有该症状，"1" 代表确定病人患有该症状，"2" 代表无法根据上下文确定病人是否患有该症状。 |
 
 
-#### 诊疗报告
+#### 医疗报告
 
 医疗报告是医生对病人健康状况的总结，是医疗诊断过程的重要环节。
 
-**IMCS21** 标注了诊疗报告。标注方式采用 **对话级标注**，标注者阅读完整医患对话，并按照规定格式为患者填写对应的诊疗报告，每个对话均包含 **2** 份诊疗报告作为参考。诊疗报告的预定义格式如下。
+**IMCS21** 标注了医疗报告。标注方式采用 **对话级标注**，标注者阅读完整医患对话，并按照规定格式为患者填写对应的医疗报告，每个对话均包含 **2** 份医疗报告作为参考。医疗报告的预定义格式如下。
 
 | 字段   | Fields          | Details               |
 |------|-----------------|-----------------------|
@@ -143,7 +143,7 @@
         },
         ...
       ]
-      "report":		                # 诊疗报告 [report1, report2]
+      "report":		                # 医疗报告 [report1, report2]
       "implicit_info":{
           "Symptom": 	            # 整组对话的症状标签，字典格式，键为症状的归一化标签，值为症状的类别标签
       }
@@ -204,7 +204,7 @@ example_id, split
 
 #### 归一化的症状词典（optional）
 
-文件名为为 *symptom_norm.csv*，所有的归一化后的症状词典，**本仓库基线代码依赖该文件**，其格式如下。
+文件名为为 *symptom_norm.csv*，归一化后的症状词典，**本仓库基线代码依赖该文件**，其格式如下。
 
 ```
 norm
