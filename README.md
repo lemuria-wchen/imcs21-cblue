@@ -17,11 +17,11 @@
 
 **IMCS21** 目前在 [CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge) 评测平台上接入了三个任务，分别为：命名实体识别、症状识别和诊疗报告生成。
 
-| 任务编号 | 任务名称   | 简称       | 任务描述                                 | 链接                                                            |
-|------|--------|----------|--------------------------------------|---------------------------------------------------------------|
-| 任务一  | 命名实体识别 | IMCS-NER | 从医患对话文本中识别出五类重要的医疗相关实体。              | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1 |
-| 任务二  | 症状识别   | IMCS-SR  | 根据医患对话文本，识别出病人具有的症状信息（包含归一化标签和类别标签）。 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2 |
-| 任务三  | 诊疗报告生成 | IMCS-MRG | 依据病人自述和医患对话，输出具有规定格式的医疗报告。           | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3 |
+| 任务编号 | 任务名称   | 简称       | 任务描述                                 | Link                                                                |
+|------|--------|----------|--------------------------------------|---------------------------------------------------------------------|
+| 任务一  | 命名实体识别 | IMCS-NER | 从医患对话文本中识别出五类重要的医疗相关实体。              | [链接](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1) |
+| 任务二  | 症状识别   | IMCS-SR  | 根据医患对话文本，识别出病人具有的症状信息（包含归一化标签和类别标签）。 | [链接](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2) |
+| 任务三  | 诊疗报告生成 | IMCS-MRG | 依据病人自述和医患对话，输出具有规定格式的医疗报告。           | [链接](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3) |
 
 ### 数据集统计
 
