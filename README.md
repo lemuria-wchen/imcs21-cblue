@@ -3,17 +3,16 @@
 这是CBLUE@Tianchi中医疗对话数据集 **IMCS21** 的仓库，本仓库包含：
 
 - 背景介绍
-- 数据集详情
-- 评测任务及基线模型代码
-  - [任务一：命名实体识别（IMCS-NER）](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1)
-  - [任务二：症状识别（IMCS-SR）](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2)
-  - [任务三：诊疗报告生成（IMCS-MRG）](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3)
+- 数据集统计
+- 多级数据注释
+- CBLUE 评测任务
+- 基线模型代码
 
-### 背景
+### 背景介绍
 
-随着"互联网+医疗"的迅速发展，在线问诊平台逐渐兴起，在线问诊是指医生通过对话和患者进行病情的交流、 疾病的诊断并且提供相关的医疗建议。在政策和疫情的影响之下，在线问诊需求增长迅速。然而医生资源是稀缺的，由此促使了**自动化医疗问诊**的发展，以人机对话来辅助问诊过程。为了促进智能医疗咨询系统（Intelligent Medical Consultation System, IMCS），我们构建了 **IMCS21** 数据集，该数据集收集了真实的在线医患对话，并进行了多层次（Multi-Level）的人工标注，包含**命名实体**、**对话意图**、**症状标签**、**诊疗报告**等，我们将该数据集接入 **CBLUE** 评测平台，希望可以共同促进智能医疗、医学语言理解等领域的发展。
+随着"互联网+医疗"的迅速发展，在线问诊平台逐渐兴起，在线问诊是指医生通过对话和患者进行病情的交流、 疾病的诊断并且提供相关的医疗建议。在政策和疫情的影响之下，在线问诊需求增长迅速。然而医生资源是稀缺的，由此促使了**自动化医疗问诊**的发展，以人机对话来辅助问诊过程。为了促进智能医疗咨询系统（Intelligent Medical Consultation System, IMCS），我们构建了 **IMCS21** 数据集，该数据集收集了真实的在线医患对话，并进行了多层次（Multi-Level）的人工标注，包含**命名实体**、**对话意图**、**症状标签**、**诊疗报告**等，我们将该数据集接入 **[CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge)** 评测平台，希望可以共同促进智能医疗、医学语言理解等领域的发展。
 
-### 数据集介绍
+### 数据集统计
 
 **IMCS21** 包含 **3,052** 组细粒度标注的医患对话案例样本，覆盖 **6** 种儿科疾病，详细统计数据如下表所示。
 
@@ -103,7 +102,11 @@
 
 ### CBLUE 评测任务
 
+**IMCS21** 目前在 [CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge) 评测平台上接入了三个任务，分别为：命名实体识别、症状识别和诊疗报告生成。
 
-
-
+| 任务编号 | 任务名称   | 简称       | 任务描述                                 | 链接                                                                    |
+|------|--------|----------|--------------------------------------|-----------------------------------------------------------------------|
+| 任务一  | 命名实体识别 | IMCS-NER | 从医患对话文本中识别出五类重要的医疗相关实体。              | [link](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1) |
+| 任务二  | 症状识别   | IMCS-SR  | 根据医患对话文本，识别出病人具有的症状信息（包含归一化标签和类别标签）。 | [link](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2) |
+| 任务三  | 诊疗报告生成 | IMCS-MRG | 依据病人自述和医患对话，输出具有规定格式的医疗报告。           | [link](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3) |
 
