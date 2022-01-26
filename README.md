@@ -1,6 +1,6 @@
 ## IMCS21-CBLUE
 
-这是CBLUE@Tianchi中医疗对话数据集 **IMCS21** 的仓库，本仓库包含：
+这是 [**CBLUE@Tianchi**](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge) 中医疗对话数据集 **IMCS21** 的仓库，本仓库包含：
 
 - 背景介绍
 - CBLUE 评测任务介绍
