@@ -1,13 +1,13 @@
 ## IMCS21-CBLUE
 
-这是CBLUE@Tianchi中医疗对话数据集 **IMCS21** 的代码仓库，本仓库包含：
+这是CBLUE@Tianchi中医疗对话数据集 **IMCS21** 的仓库，本仓库包含：
 
 - 背景介绍
 - 数据集详情
 - 评测任务及基线模型代码
-  - 任务一：医疗命名实体识别（IMCS-NER）
-  - 任务一：医疗命名实体识别（IMCS-NER）
-  - 任务一：医疗命名实体识别（IMCS-NER）
+  - [任务一: 医疗命名实体识别（IMCS-NER）](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1)
+  - [任务二：症状识别（IMCS-SR）](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2)
+  - [任务三：医疗报告生成（IMCS-MRG）](https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3)
 
 ### 背景
 
