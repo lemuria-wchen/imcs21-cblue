@@ -29,7 +29,7 @@
 
 | 统计指标                   | Statistical Metrics                                 | Value   |
 |------------------------|-----------------------------------------------------|---------|
-| 覆盖疾病数                  | # of Diseases                                       | 6       |
+| 总疾病数                   | # of Diseases                                       | 6       |
 | 总对话数                   | # of Total Dialogs                                  | 3,052   |
 | 总句子数                   | # of Total Sentences                                | 123,762 |
 | 平均每个对话包含的句子数           | # of Avg. Sentences / Per Dialog                    | 40.55   |
