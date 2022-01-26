@@ -3,6 +3,7 @@ import json
 import pandas as pd
 from collections import defaultdict
 
+
 def load_json(path: str):
     with open(path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -77,3 +78,4 @@ write_json(dev_set, os.path.join('processed', 'dev_set.json'))
 write_json(test_set, os.path.join('processed', 'test_set.json'))
 
 print('train/dev/test size: {}/{}/{}'.format(len(split['train']), len(split['dev']), len(split['test'])))
+

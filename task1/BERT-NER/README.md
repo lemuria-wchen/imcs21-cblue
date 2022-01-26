@@ -1,12 +1,12 @@
-# Track1- Task1：BERT-NER
+# Task1：BERT-NER
 
-[第一届智能对话诊疗评测比赛imcs21](http://www.fudan-disc.com/sharedtask/imcs21/index.html)赛道一任务一（命名实体识别）的BERT-CRF基础模型。
+**医疗命名实体识别（IMCS-NER）** 任务的 *BERT-CRF* 基线模型。
 
 ## 0. Set Up
 
 ### 0.1 Dataset
 
-数据集从网站[imcs21](http://www.fudan-disc.com/sharedtask/imcs21/index.html)下载，将dataset文件夹放在Track1文件夹内。
+下载数据集，将dataset文件夹放在Track1文件夹内。
 
 ### 0.2 Requirements
 
@@ -55,7 +55,7 @@ python eval_track1_task1.py {gold_data_path} {pred_data_path}
 ## Experimental details
 
 | Metric               | Value                   |
-| -------------------- | ----------------------- |
+|----------------------|-------------------------|
 | F1 score on test set | 92.21%                  |
 | Training Epochs      | 10                      |
 | Training Time        | 3.5h                    |
@@ -68,4 +68,3 @@ python eval_track1_task1.py {gold_data_path} {pred_data_path}
 
 - [Huggingface Transformers](https://github.com/huggingface/transformers)
 - [pytorch-crf](https://github.com/kmkurn/pytorch-crf)
-

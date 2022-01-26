@@ -21,9 +21,12 @@ MODEL_PATH_MAP = {
     'bert': 'bert-base-chinese',
 }
 
+
 def get_seq_labels(args):
     """获取序列标签"""
-    return [label.strip() for label in open(os.path.join(args.data_dir, args.task, args.seq_label_file), 'r', encoding='utf-8')]
+    return [label.strip() for label in
+            open(os.path.join(args.data_dir, args.task, args.seq_label_file), 'r', encoding='utf-8')]
+
 
 def load_tokenizer(args):
     """加载rokenizer"""
@@ -31,6 +34,7 @@ def load_tokenizer(args):
     return MODEL_CLASSES[args.model_type][2].from_pretrained(args.model_name_or_path)
     # # 从已下载文件中读取
     # return MODEL_CLASSES[args.model_type][2].from_pretrained('./bert-base-chinese/bert-base-chinese-vocab.txt')
+
 
 def init_logger():
     """logger初始化"""
@@ -67,7 +71,6 @@ def get_seq_metrics(preds, labels):
         "seq_recall": recall_score(labels, preds),
         "seq_f1": f1_score(labels, preds)
     }
-
 
 
 def read_prediction_text(args):

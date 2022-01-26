@@ -56,7 +56,7 @@ def read_input_file(input_path):
             eids.append(k)
             sids.append(sent['sentence_id'])
 
-    return (lines, eids, sids)
+    return lines, eids, sids
 
 
 def convert_input_file_to_tensor_dataset(lines,

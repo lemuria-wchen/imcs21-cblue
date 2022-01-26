@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 class Trainer(object):
     """模型训练"""
+
     def __init__(self, args, train_dataset=None, dev_dataset=None):
         self.args = args
         self.train_dataset = train_dataset
@@ -53,7 +54,8 @@ class Trainer(object):
 
         if self.args.max_steps > 0:
             t_total = self.args.max_steps
-            self.args.num_train_epochs = self.args.max_steps // (len(train_dataloader) // self.args.gradient_accumulation_steps) + 1
+            self.args.num_train_epochs = self.args.max_steps // (
+                    len(train_dataloader) // self.args.gradient_accumulation_steps) + 1
         else:
             t_total = len(train_dataloader) // self.args.gradient_accumulation_steps * self.args.num_train_epochs
 
@@ -62,10 +64,12 @@ class Trainer(object):
         optimizer_grouped_parameters = [
             {'params': [p for n, p in self.model.named_parameters() if not any(nd in n for nd in no_decay)],
              'weight_decay': self.args.weight_decay},
-            {'params': [p for n, p in self.model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
+            {'params': [p for n, p in self.model.named_parameters() if any(nd in n for nd in no_decay)],
+             'weight_decay': 0.0}
         ]
         optimizer = AdamW(optimizer_grouped_parameters, lr=self.args.learning_rate, eps=self.args.adam_epsilon)
-        scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=self.args.warmup_steps, num_training_steps=t_total)
+        scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=self.args.warmup_steps,
+                                                    num_training_steps=t_total)
 
         logger.info("***** Running training *****")
         logger.info("  Num examples = %d", len(self.train_dataset))
@@ -174,7 +178,8 @@ class Trainer(object):
                 else:
                     seq_preds = np.append(seq_preds, seq_logits.detach().cpu().numpy(), axis=0)
 
-                out_seq_labels_ids = np.append(out_seq_labels_ids, inputs["seq_labels_ids"].detach().cpu().numpy(), axis=0)
+                out_seq_labels_ids = np.append(out_seq_labels_ids, inputs["seq_labels_ids"].detach().cpu().numpy(),
+                                               axis=0)
 
         eval_loss = eval_loss / nb_eval_steps
         results = {
@@ -223,7 +228,7 @@ class Trainer(object):
 
     def load_model(self):
         """模型读取"""
-        print('============================模型是：',self.model_class)
+        print('============================模型是：', self.model_class)
         print(self.args)
         if not os.path.exists(self.args.model_dir):
             raise Exception("Model doesn't exists! Train first!")

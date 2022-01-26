@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 from transformers.modeling_bert import BERT_PRETRAINED_MODEL_ARCHIVE_MAP, BertPreTrainedModel, BertModel, BertConfig
 from torchcrf import CRF
@@ -6,6 +5,7 @@ from torchcrf import CRF
 
 class SeqClassifier(nn.Module):
     """序列标注分类器"""
+
     def __init__(self, input_dim, num_seq_labels, dropout_rate=0.):
         super(SeqClassifier, self).__init__()
         self.dropout = nn.Dropout(dropout_rate)
@@ -14,6 +14,7 @@ class SeqClassifier(nn.Module):
     def forward(self, x):
         x = self.dropout(x)
         return self.linear(x)
+
 
 class NERBERT(BertPreTrainedModel):
     """NERBERT模型"""

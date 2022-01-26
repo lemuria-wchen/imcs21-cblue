@@ -31,7 +31,7 @@ class InputExample(object):
 
     def to_json_string(self):
         """将实例序列化为json"""
-        return json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n" #indent是缩进打印
+        return json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n"  # indent是缩进打印
 
 
 class InputFeatures(object):
@@ -89,7 +89,6 @@ class Processor(object):
             examples.append(InputExample(guid=guid, words=words, seq_labels=seq_labels))
         return examples
 
-
     def get_examples(self, mode):
         """
         获得训练/验证的内容
@@ -99,6 +98,7 @@ class Processor(object):
         return self._create_examples(texts=self._read_file(os.path.join(data_path, self.input_text_file)),
                                      seqs=self._read_file(os.path.join(data_path, self.seq_labels_file)),
                                      set_type=mode)
+
 
 # 自定义任务处理器
 processors = {
@@ -166,10 +166,12 @@ def convert_examples_to_features(examples, max_seq_len, tokenizer,
         seq_labels_ids = seq_labels_ids + ([pad_token_label_id] * padding_length)
 
         assert len(input_ids) == max_seq_len, "Error with input length {} vs {}".format(len(input_ids), max_seq_len)
-        assert len(attention_mask) == max_seq_len, "Error with attention mask length {} vs {}".format(len(attention_mask), max_seq_len)
-        assert len(token_type_ids) == max_seq_len, "Error with token type length {} vs {}".format(len(token_type_ids), max_seq_len)
-        assert len(seq_labels_ids) == max_seq_len, "Error with seq labels length {} vs {}".format(len(seq_labels_ids), max_seq_len)
-
+        assert len(attention_mask) == max_seq_len, "Error with attention mask length {} vs {}".format(
+            len(attention_mask), max_seq_len)
+        assert len(token_type_ids) == max_seq_len, "Error with token type length {} vs {}".format(len(token_type_ids),
+                                                                                                  max_seq_len)
+        assert len(seq_labels_ids) == max_seq_len, "Error with seq labels length {} vs {}".format(len(seq_labels_ids),
+                                                                                                  max_seq_len)
 
         # 查看前5个样本
         if ex_index < 5:
