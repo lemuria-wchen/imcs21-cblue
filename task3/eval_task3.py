@@ -13,11 +13,11 @@ def make_vocab(path):
     return vocab
 
 
-def tokenize(report: str, word2id: dict):
+def tokenize(report: str, vocab: dict):
     ids = []
-    for word in report.strip('\n'):
-        if word in word2id:
-            ids.append(str(word2id.get(word)))
+    for word in report.replace(' ', '').replace('\n', ''):
+        if word in vocab:
+            ids.append(str(vocab.get(word)))
         else:
             ids.append(str(-1))
     return ' '.join(ids)
@@ -58,4 +58,5 @@ def evaluate(golds, preds, vocab):
 if __name__ == "__main__":
     gold_data = load_json(sys.argv[1])  # 读入test的真实数据
     pred_data = load_json(sys.argv[2])  # 读入test的预测数据
-    print(evaluate(gold_data, pred_data, make_vocab('task3/vocab')))
+    word2id = make_vocab('task3/vocab')
+    print(evaluate(gold_data, pred_data, word2id))
