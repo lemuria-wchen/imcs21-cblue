@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 import json
 import sys
 from seqeval.metrics import f1_score, precision_score, recall_score
@@ -30,7 +29,7 @@ def eval(gold_data, pred_data):
     p = precision_score(golds, preds)
     r = recall_score(golds, preds)
     print('Test F1 score {}%'.format(round(f1 * 100, 4)))
-    return f1, p, r
+    return {'f1': f1, 'p': p, 'r': r}
 
 
 if __name__ == "__main__":

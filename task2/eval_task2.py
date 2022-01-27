@@ -3,7 +3,7 @@ import sys
 
 
 def load_json(path: str):
-    '''读取json文件'''
+    """读取json文件"""
     with open(path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     return data
@@ -39,12 +39,13 @@ def eval(gold_data, pred_data):
         golds.append(gold_type)
         preds.append(pred_type)
     assert len(golds) == len(preds)
-    _, _, f1 = cal_f1_score(preds, golds)
+    p, r, f1 = cal_f1_score(preds, golds)
     print('Test F1 score {}%'.format(round(f1 * 100, 4)))
+    return {'f1': f1, 'p': p, 'r': r}
 
 
 if __name__ == "__main__":
     gold_data = load_json(sys.argv[1])  # 读入test的真实数据
     pred_data = load_json(sys.argv[2])  # 读入test的预测数据
 
-    eval(gold_data, pred_data)
+    print(eval(gold_data, pred_data))
