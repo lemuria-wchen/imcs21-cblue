@@ -11,7 +11,9 @@
 
 ### 更新
 
-**注意**：imcs21 数据集已更新，添加了 4 种疾病，覆盖了 10 种️疾病，共 4,116 条样本。新版本评测仓库更新了每个任务的评价脚本，同时也更新了基线代码。欢迎大家来 CBLUE 打榜！ 对 imcs21 数据集的详细介绍请参考我们的论文 [A Benchmark for Automatic Medical Consultation System: Frameworks, Tasks and Datasets](https://arxiv.org/abs/2204.08997)，以及对应的代码仓库 [https://github.com/lemuria-wchen/imcs21](https://github.com/lemuria-wchen/imcs21)。 
+IMCS21 数据集已更新，添加了 4 种疾病，覆盖了 10 种️疾病，共 4,116 条样本。新版本评测仓库更新了每个任务的评价脚本，同时也更新了基线代码。欢迎大家来 CBLUE 打榜！ 
+
+**注意**：对 IMCS21 新版数据集的详细介绍请参考我们的论文 [A Benchmark for Automatic Medical Consultation System: Frameworks, Tasks and Datasets](https://arxiv.org/abs/2204.08997)，以及对应的代码仓库 [https://github.com/lemuria-wchen/imcs21](https://github.com/lemuria-wchen/imcs21)。 
 
 ### 背景介绍
 
