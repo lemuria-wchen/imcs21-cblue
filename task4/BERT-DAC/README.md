@@ -54,17 +54,3 @@ python run.py --model bert
 ```shell
 python run.py --model bert_RCNN
 ```
-
-#### Save the Predictions of ERNIE on the Test Set 
-
-In MRG task, we use the concatenation of all NON-OTHER categories of utterances to generate medical reports. During inference, the categories of utterances in the test set is pre-predicted by the trained ERNIE model of DAC task.   
-
-This script is used to save the utterance category predictions of ERNIE model on the test set.
-
-```shell
-python run.py --model ERNIE --save_path ernie_predictions.npz
-```
-
-#### Error Analysis
-
-We also provide the implementation of visualization of the classification confusion matrix predicted by ERNIE model on the test set in `vis.py`.
