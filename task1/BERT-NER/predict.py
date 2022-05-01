@@ -13,9 +13,9 @@ from utils import init_logger, load_tokenizer, get_seq_labels, MODEL_CLASSES
 logger = logging.getLogger(__name__)
 
 
-def get_device(pred_config):
+def get_device():
     """获得设备类型"""
-    return "cuda" if torch.cuda.is_available() and not pred_config.no_cuda else "cpu"
+    return "cuda" if torch.cuda.is_available() else "cpu"
 
 
 def get_args(pred_config):
@@ -25,7 +25,7 @@ def get_args(pred_config):
 
 def load_model(pred_config, args, device):
     """加载模型"""
-    print('==================================模型是:',MODEL_CLASSES[args.model_type][1])
+    print('==================================模型是:', MODEL_CLASSES[args.model_type][1])
     if not os.path.exists(pred_config.model_dir):
         raise Exception("Model doesn't exists! Train first!")
 
@@ -36,14 +36,13 @@ def load_model(pred_config, args, device):
         model.to(device)
         model.eval()
         logger.info("***** Model Loaded *****")
-    except:
+    except Exception:
         raise Exception("Some model files might be missing...")
 
     return model
 
 
 def read_input_file(input_path):
-    """读取预测的文件"""
     lines = []
     eids = []
     sids = []
@@ -55,7 +54,6 @@ def read_input_file(input_path):
             lines.append(words)
             eids.append(k)
             sids.append(sent['sentence_id'])
-
     return lines, eids, sids
 
 
@@ -66,8 +64,6 @@ def convert_input_file_to_tensor_dataset(lines,
                                          pad_token_segment_id=0,
                                          sequence_a_segment_id=0,
                                          mask_padding_with_zero=True):
-    """将原始数据转换为特征"""
-
     # 设置最大长度
     max_seq_len = len(max(lines, key=len)) + 2
 
@@ -134,7 +130,8 @@ def predict(pred_config):
     """预测"""
     # 读取模型和参数
     args = get_args(pred_config)
-    device = get_device(pred_config)
+    args.data_dir = './'
+    device = get_device()
     model = load_model(pred_config, args, device)
     logger.info(args)
 
@@ -144,7 +141,7 @@ def predict(pred_config):
     tokenizer = load_tokenizer(args)
     # 读取文本序列列表，example_ids, sentence_ids
     (lines, eids, sids) = read_input_file(
-            os.path.join(pred_config.test_input_file))
+        os.path.join(pred_config.test_input_file))
     dataset = convert_input_file_to_tensor_dataset(lines, tokenizer, pad_token_label_id)
 
     # 预测
@@ -213,12 +210,13 @@ if __name__ == "__main__":
     init_logger()
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--test_input_file", default="../../dataset/test.json", type=str, help="Input file for prediction")
-    parser.add_argument("--test_output_file", default="submission_track1_task1.json", type=str, help="Output file for prediction")
-    parser.add_argument("--model_dir", default="./save_model", type=str, help="Path to save, load model")
-
+    parser.add_argument("--test_input_file", default="../../dataset/test_input.json", type=str,
+                        help="Input file for prediction")
+    parser.add_argument("--test_output_file", default="pred.json", type=str,
+                        help="Output file for prediction")
+    parser.add_argument("--model_dir", default="./saved", type=str, help="Path to save, load model")
     parser.add_argument("--batch_size", default=32, type=int, help="Batch size for prediction")
-    parser.add_argument("--no_cuda", action="store_true", help="Avoid using CUDA when available")
+    # parser.add_argument("--no_cuda", action="store_true", default=False, help="Avoid using CUDA when available")
 
-    pred_config = parser.parse_args()
-    predict(pred_config)
+    config = parser.parse_args()
+    predict(config)

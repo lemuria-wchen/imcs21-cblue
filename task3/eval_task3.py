@@ -1,26 +1,6 @@
 import json
-import sys
-from pandas.core.frame import DataFrame
-from sumeval.metrics.rouge import RougeCalculator
-
-
-def make_vocab(path):
-    vocab = {}
-    with open(path, 'r', encoding='utf-8') as f:
-        for line in f.readlines():
-            word, word_id = line.split()
-            vocab[word] = str(word_id)
-    return vocab
-
-
-def tokenize(report: str, vocab: dict):
-    ids = []
-    for word in report.replace(' ', '').replace('\n', ''):
-        if word in vocab:
-            ids.append(str(vocab.get(word)))
-        else:
-            ids.append(str(-1))
-    return ' '.join(ids)
+import argparse
+from rouge import Rouge
 
 
 def load_json(path: str):
@@ -29,34 +9,70 @@ def load_json(path: str):
     return data
 
 
-def compute_scores(summary, references):
-    rouge = RougeCalculator(stopwords=False, lang="en")
-    rouge_1 = rouge.rouge_n(summary=summary, references=references, n=1)
-    rouge_2 = rouge.rouge_n(summary=summary, references=references, n=2)
-    rouge_l = rouge.rouge_l(summary=summary, references=references)
-    return rouge_1, rouge_2, rouge_l
+def process(title, delimiter=''):
+    x = []
+    for key, value in title.items():
+        x.append(key + '：' + value)
+    return delimiter.join(x)
 
 
-def evaluate(golds, preds, vocab):
-    assert len(golds) == len(preds)
-    scores = []
-    for key, val in preds.items():
-        assert key in golds
-        gold_reports = [tokenize(report, vocab) for report in golds[key]['report']]
-        pred_report = tokenize(val, vocab)
-        try:
-            score = compute_scores(pred_report, gold_reports)
-            scores.append(score)
-        except Exception as e:
-            print(e)
-            scores.append([0.0, 0.0, 0.0])
-    df_scores = DataFrame(scores)
-    mean_scores = [round(df_scores[i].mean(), 4) for i in range(3)]
-    return {'ROUGE-1': mean_scores[0], 'ROUGE-2': mean_scores[1], 'ROUGE-L': mean_scores[2]}
+def compute_rouge(source, targets):
+    try:
+        r1, r2, rl = 0, 0, 0
+        n = len(targets)
+        for target in targets:
+            source, target = ' '.join(source), ' '.join(target)
+            scores = Rouge().get_scores(hyps=source, refs=target)
+            r1 += scores[0]['rouge-1']['f']
+            r2 += scores[0]['rouge-2']['f']
+            rl += scores[0]['rouge-l']['f']
+        return {
+            'rouge-1': r1 / n,
+            'rouge-2': r2 / n,
+            'rouge-l': rl / n,
+        }
+    except ValueError:
+        return {
+            'rouge-1': 0.0,
+            'rouge-2': 0.0,
+            'rouge-l': 0.0,
+        }
 
 
-if __name__ == "__main__":
-    gold_data = load_json(sys.argv[1])  # 读入test的真实数据
-    pred_data = load_json(sys.argv[2])  # 读入test的预测数据
-    word2id = make_vocab('task3/vocab')
-    print(evaluate(gold_data, pred_data, word2id))
+def compute_rouges(sources, targets):
+    scores = {
+        'rouge-1': 0.0,
+        'rouge-2': 0.0,
+        'rouge-l': 0.0,
+    }
+    for source, target in zip(sources, targets):
+        score = compute_rouge(source, target)
+        for k, v in scores.items():
+            scores[k] = v + score[k]
+    print({k: v / len(targets) for k, v in scores.items()})
+    # 在 CBLEU 评测中，我们使用 rouge-1, rouge-2 和 rouge-l 的平均值作为评价指标
+
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--gold_path', type=str, default='../../dataset/test.json', help='gold file path')
+    parser.add_argument('--pred_path', type=str, help='pred file path')
+
+    args = parser.parse_args()
+
+    gold_data = load_json(args.gold_path)
+    pred_data = load_json(args.pred_path)
+
+    golds, preds = [], []
+    for pid, sample in gold_data.items():
+        title1, title2 = sample['report'][0], sample['report'][1]
+        golds.append([process(title1), process(title2)])
+        assert pid in pred_data
+        preds.append(process(pred_data[pid]))
+
+    print('-- MRG task evaluation --')
+    compute_rouges(preds, golds)
+
+    # usage:
+    # python eval_task3.py --gold_path ../../dataset/test.json --pred_path opennmt/data/pred_lstm.json

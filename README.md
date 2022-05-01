@@ -9,41 +9,52 @@
 - 多级数据注释
 - 数据格式
 
+### 更新
+
+**注意**：imcs21 数据集已更新，添加了 4 种疾病，覆盖了 10 种️疾病，共 4,116 条样本。新版本评测仓库更新了每个任务的评价脚本，同时也更新了基线代码。欢迎大家来 CBLUE 打榜！
+
+对 imcs21 数据集的详细介绍请参考我们的论文 [A Benchmark for Automatic Medical Consultation System: Frameworks, Tasks and Datasets](https://arxiv.org/abs/2204.08997)，以及对应的代码仓库 [https://github.com/lemuria-wchen/imcs21](https://github.com/lemuria-wchen/imcs21)。 
+
 ### 背景介绍
 
 随着"互联网+医疗"的迅速发展，在线问诊平台逐渐兴起，在线问诊是指医生通过对话和患者进行病情的交流、 疾病的诊断并且提供相关的医疗建议。在政策和疫情的影响之下，在线问诊需求增长迅速。然而医生资源是稀缺的，由此促使了**自动化医疗问诊**的发展，以人机对话来辅助问诊过程。为了促进智能医疗咨询系统（Intelligent Medical Consultation System, IMCS），我们构建了 **IMCS21** 数据集，该数据集收集了真实的在线医患对话，并进行了多层次（Multi-Level）的人工标注，包含**命名实体**、**对话意图**、**症状标签**、**医疗报告**等，我们将该数据集接入 **[CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge)** 评测平台，希望可以共同促进智能医疗、医学语言理解等领域的发展。
 
 ### CBLUE 评测任务
 
-**IMCS21** 目前在 [CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge) 评测平台上接入了三个任务，分别为：命名实体识别、症状识别和医疗报告生成。
+**IMCS21** 目前在 [CBLUE](https://tianchi.aliyun.com/specials/promotion/2021chinesemedicalnlpleaderboardchallenge) 评测平台上接入了**四个任务**，分别为：命名实体识别、症状识别、医疗报告生成和对话意图识别。
 
 | 任务编号 | 任务名称   | 简称       | 任务描述                                 | 链接                                                            |
 |------|--------|----------|--------------------------------------|---------------------------------------------------------------|
 | 任务一  | 命名实体识别 | IMCS-NER | 从医患对话文本中识别出五类重要的医疗相关实体。              | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1 |
 | 任务二  | 症状识别   | IMCS-SR  | 根据医患对话文本，识别出病人具有的症状信息（包含归一化标签和类别标签）。 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2 |
 | 任务三  | 医疗报告生成 | IMCS-MRG | 依据病人自述和医患对话，输出具有规定格式的医疗报告。           | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3 |
+| 任务四  | 对话意图识别 | IMCS-DAC | 从话语中识别医生或者患者的意图（共 16 种）。             | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task4 |
 
 ### 数据集介绍
 
-**IMCS21** 包含 **3,052** 组细粒度标注的医患对话案例样本，覆盖 **6** 种儿科疾病，详细统计数据如下表所示。
+**IMCS21** 包含 **4,116** 组细粒度标注的医患对话案例样本，覆盖 **10** 种儿科疾病，详细统计数据如下表所示。
 
 | 统计指标                   | Statistical Metrics                                 | Value   |
 |------------------------|-----------------------------------------------------|---------|
-| 总疾病数                   | # of Diseases                                       | 6       |
-| 总对话数                   | # of Total Dialogs                                  | 3,052   |
-| 总句子数                   | # of Total Sentences                                | 123,762 |
-| 平均每个对话包含的句子数           | # of Avg. Sentences / Per Dialog                    | 40.55   |
-| 平均每个对话包含的字符数           | # of Avg. Words / Per Dialog                        | 531.18  |
-| 平均每个对话包含的字符数（包含患者自我报告） | # of Avg. Words / Per Dialog (Contains Self-Report) | 589.04  |
+| 总疾病数                   | # of Diseases                                       | 10      |
+| 总对话数                   | # of Total Dialogs                                  | 4,116   |
+| 总句子数                   | # of Total Sentences                                | 164,731 |
+| 平均每个对话包含的句子数           | # of Avg. Sentences / Per Dialog                    | 40      |
+| 平均每个对话包含的字符数           | # of Avg. Words / Per Dialog                        | 523     |
+| 平均每个对话包含的字符数（包含患者自我报告） | # of Avg. Words / Per Dialog (Contains Self-Report) | 580     |
 
-| 疾病名称   | 样本数 |
-|--------|-----|
-| 小儿支气管炎 | 543 |
-| 小儿发热   | 542 |
-| 小儿腹泻   | 534 |
-| 上呼吸道感染 | 486 |
-| 小儿消化不良 | 475 |
-| 小儿感冒   | 472 |
+| 疾病名称    | 样本数 |
+|---------|-----|
+| 小儿支气管炎  | 543 |
+| 小儿发热    | 542 |
+| 小儿腹泻    | 534 |
+| 上呼吸道感染  | 486 |
+| 小儿消化不良  | 475 |
+| 小儿感冒    | 472 |
+| 小儿咳嗽    | 344 |
+| 新生儿黄疸   | 294 |
+| 小儿便秘    | 221 |
+| 小儿支气管肺炎 | 205 |
 
 ### 多级数据注释
 
@@ -116,7 +127,7 @@
 
 #### 训练集 
 
-文件名为为 *train.json*，共 **2,440** 条样本，其格式如下。
+文件名为为 `train.json`，共 **2,472** 条样本，其格式如下。
 
 ```
 {
@@ -144,13 +155,30 @@
         },
         ...
       ]
-      "report":		                # 医疗报告 [report1, report2]
-      "implicit_info":{
-          "Symptom": 	            # 整组对话的症状标签，字典格式，键为症状的归一化标签，值为症状的类别标签
-      }
+      "report":[                   # 两份医疗报告
+      {
+        "主诉": 
+        "现病史":
+        "辅助检查": 
+        "既往史": 
+        "诊断": 
+        "建议": 
+      }, 
+      {
+        "主诉": 
+        "现病史":  
+        "辅助检查": 
+        "既往史": 
+        "诊断": 
+        "建议": 
+      },       
+      ]     
       "explicit_info":{
           "Symptom": 	            # 患者自我报告中的症状，列表格式，值为症状的归一化标签
-      }      
+      }         
+      "implicit_info":{
+          "Symptom": 	            # 基于整组对话推断得到的症状标签，字典格式，键为症状的归一化标签，值为症状的类别标签
+      } 
   }
   "example_id2":{
       ...
@@ -159,9 +187,13 @@
 }
 ```
 
-#### 测试集
+#### 验证集
 
-文件名为为 *test_input.json*，共 **612** 条样本，其格式如下。
+文件名为为 `dev.json`，共 **833** 条样本，其格式同训练集。
+
+#### 测试集输入（仅包含原始医患对话）
+
+文件名为为 `test_input.json`，共 **811** 条样本，其格式如下。
 
 ```
 {
@@ -188,24 +220,13 @@
 }
 ```
 
-#### 建议的数据划分（optional）
+#### 验证集完整
 
-文件名为为 *split.csv*，建议的训练集与验证集划分，**本仓库基线代码依赖该文件**，其格式如下。
-
-```
-example_id, split
-10712402,   train
-10872941,   train
-10035395,   dev
-...
-10115809,   test
-10729578,   test
-...
-```
+文件名为为 `test.json`，共 **811** 条样本，其格式同训练集与验证集。
 
 #### 归一化的症状词典（optional）
 
-文件名为为 *symptom_norm.csv*，归一化后的症状词典，**本仓库基线代码依赖该文件**，其格式如下。
+文件名为为 `symptom_norm.csv`，归一化后的症状词典，**本仓库基线代码依赖该文件**，其格式如下。
 
 ```
 norm
@@ -215,3 +236,13 @@ norm
 ...
 ```
 
+### Reference
+
+```
+@article{chen2022benchmark,
+  title={A Benchmark for Automatic Medical Consultation System: Frameworks, Tasks and Datasets},
+  author={Chen, Wei and Li, Zhiwei and Fang, Hongyi and Yao, Qianyuan and Zhong, Cheng and Hao, Jianye and Zhang, Qi and Huang, Xuanjing and Wei, Zhongyu and others},
+  journal={arXiv preprint arXiv:2204.08997},
+  year={2022}
+}
+```

@@ -44,7 +44,7 @@ class Trainer(object):
         #                                               seq_label_lst=self.seq_label_lst)
 
         # GPU / CPU
-        self.device = "cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu"
+        self.device = "cuda:1" if torch.cuda.is_available() and not args.no_cuda else "cpu"
         self.model.to(self.device)
 
     def train(self):

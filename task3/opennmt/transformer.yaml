@@ -1,0 +1,61 @@
+# transformer.yaml
+data:
+    corpus_1:
+        path_src: data/src-train.txt
+        path_tgt: data/tgt-train.txt
+    valid:
+        path_src: data/src-dev.txt
+        path_tgt: data/tgt-dev.txt
+
+## Where the samples will be written
+save_data: processed/tf
+
+## Where the vocab(s) will be written
+src_vocab: processed/tf/vocab
+#tgt_vocab: processed/tf/vocab.tgt
+
+# Where to save the checkpoints
+save_model: saved/tf
+save_checkpoint_steps: 1000
+train_steps: 20000
+valid_steps: 1000
+warmup_steps: 800
+report_every: 100
+
+encoder_type: transformer
+decoder_type: transformer
+word_vec_size: 512
+rnn_size: 512
+layers: 6
+transformer_ff: 2048
+heads: 8
+
+accum_count: 2
+optim: adam
+adam_beta1: 0.9
+adam_beta2: 0.998
+decay_method: noam
+learning_rate: 2.0
+max_grad_norm: 0.0
+
+src_seq_length: 1024
+tgt_seq_length: 256
+
+batch_size: 4096
+batch_type: tokens
+normalization: tokens
+dropout: 0.1
+label_smoothing: 0.1
+
+max_generator_batches: 2
+
+param_init: 0.0
+param_init_glorot: 'true'
+position_encoding: 'true'
+
+world_size: 4
+gpu_ranks:
+  - 0
+  - 1
+  - 2
+  - 3

@@ -183,20 +183,20 @@ def convert_examples_to_features(examples, max_seq_len, tokenizer,
             logger.info("token_type_ids: %s" % " ".join([str(x) for x in token_type_ids]))
             logger.info("seq_labels: %s" % " ".join([str(x) for x in seq_labels_ids]))
 
-        # 将特征输出到txt文件中，方便查看
-        with open('data/snips_train.txt', 'a', encoding='utf-8') as f:
-            f.write('guid:' + example.guid + '\n')
-            f.write('tokens:')
-            f.write(''.join([str(x) + ' ' for x in tokens]) + '\n')
-            f.write('input_ids:')
-            f.write(''.join([str(x) + ' ' for x in input_ids]) + '\n')
-            f.write('attention_mask:')
-            f.write(''.join([str(x) + ' ' for x in attention_mask]) + '\n')
-            f.write('token_type_ids:')
-            f.write(''.join([str(x) + ' ' for x in token_type_ids]) + '\n')
-            f.write('seq_labels:')
-            f.write(''.join([str(x) + ' ' for x in seq_labels_ids]) + '\n')
-        f.close()
+        # # 将特征输出到txt文件中，方便查看
+        # with open('snips_train.txt', 'a+', encoding='utf-8') as f:
+        #     f.write('guid:' + example.guid + '\n')
+        #     f.write('tokens:')
+        #     f.write(''.join([str(x) + ' ' for x in tokens]) + '\n')
+        #     f.write('input_ids:')
+        #     f.write(''.join([str(x) + ' ' for x in input_ids]) + '\n')
+        #     f.write('attention_mask:')
+        #     f.write(''.join([str(x) + ' ' for x in attention_mask]) + '\n')
+        #     f.write('token_type_ids:')
+        #     f.write(''.join([str(x) + ' ' for x in token_type_ids]) + '\n')
+        #     f.write('seq_labels:')
+        #     f.write(''.join([str(x) + ' ' for x in seq_labels_ids]) + '\n')
+        # f.close()
 
         # 返回固定格式的特征
         features.append(
@@ -253,3 +253,4 @@ def load_and_cache_examples(args, tokenizer, mode):
     dataset = TensorDataset(all_input_ids, all_attention_mask,
                             all_token_type_ids, all_seq_labels_ids)
     return dataset
+

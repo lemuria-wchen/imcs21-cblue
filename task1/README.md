@@ -21,7 +21,6 @@
 | 患者：给喝过**小儿咳喘灵**，**阿莫西林颗粒** | O O O O O O B-Drug I-Drug I-Drug I-Drug I-Drug O B-Drug I-Drug I-Drug I-Drug I-Drug I-Drug |
 | ...                        | ...                                                                                        |
 
-
 ### 提交格式
 
 **IMCS-NER** 任务要求提交文件为 **json** 格式，具体格式如下。
@@ -29,31 +28,31 @@
 ```
 {
     "example_id1": {    # 测试集样本id
-        "sentence_id1": "O O O O O O O O O O O",  
-        "sentence_id2": "O O O O O B-Symptom I-Symptom O O O O O O",
+        "sentence_id1": "O O O O O O O O O O O", 
+        "sentence_id2": "O O O O O B-Symptom I-Symptom O O O O O O", 
         ...
-    }
-   	"example_id2":{
+    }, 
+    "example_id2":{
    	...
-   	}
+    }
 ...
 }
 ```
 
 ### 评价方法
 
-**IMCS-NER** 任务采用 **F1 score** 作为评价指标，详细见文件 `eval_task1.py`, 运行方式如下：
+**IMCS-NER** 任务采用实体级的 **F1 score** 作为评价指标，详细见文件 `eval_task1.py`, 运行方式如下：
 
 ```shell
-python3 eval_task1.py {gold_data_path} {pred_data_path}
+python3 eval_task1.py --gold_path {gold_file_path} --pred_path {pred_file_path}
 ```
 
 ### 基线模型
 
-我们为 **IMCS-NER** 任务创建了 2 个基线模型，模型详情如下。
+我们为 **IMCS-NER** 任务创建了 2 个基线模型，详情如下。
 
-| Model    | F1-score (%) | Link                                                                   |
-|----------|--------------|------------------------------------------------------------------------|
-| LSTM-NER | 92.21        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1/LSTM-NER |
-| BERT-NER | 91.66        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1/BERT-NER |
+| Model      | F1-score (%) | Link                                                                     |
+|------------|--------------|--------------------------------------------------------------------------|
+| LSTM-NER   | 90.10        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1/LSTM-NER   |
+| BERT-NER   | 90.64        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1/BERT-NER   |
 

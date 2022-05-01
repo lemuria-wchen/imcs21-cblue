@@ -11,14 +11,27 @@ from transformers import BertTokenizer
 
 from modeling_nerbert import NERBERT
 
+
+from transformers import RobertaConfig, RobertaTokenizer, XLNetConfig, XLNetTokenizer
+
 # 模型类别
 MODEL_CLASSES = {
     'bert': (BertConfig, NERBERT, BertTokenizer),
+    'roberta': (BertConfig, NERBERT, BertTokenizer),
+    'xlnet': (BertConfig, NERBERT, BertTokenizer),
+    # 'xlnet': (XLNetConfig, NERBERT, XLNetTokenizer),
+    'electra': (BertConfig, NERBERT, BertTokenizer),
+    'macbert': (BertConfig, NERBERT, BertTokenizer),
+    # 'roberta': (RobertaConfig, NERBERT, RobertaTokenizer),
 }
 
 # 模型路径
 MODEL_PATH_MAP = {
     'bert': 'bert-base-chinese',
+    'roberta': 'hfl/chinese-roberta-wwm-ext',
+    'xlnet': 'hfl/chinese-xlnet-base',
+    'electra': 'hfl/chinese-electra-large-discriminator',
+    'macbert': 'hfl/chinese-macbert-base'
 }
 
 

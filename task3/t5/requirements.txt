@@ -1,0 +1,7 @@
+transformers==4.15.0
+tokenizers==0.10.3
+# bert4keras==0.10.0
+jieba
+rouge
+tqdm
+pandas

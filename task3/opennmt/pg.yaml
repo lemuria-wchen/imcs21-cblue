@@ -1,0 +1,51 @@
+# pg.yaml
+data:
+    corpus_1:
+        path_src: data/src-train.txt
+        path_tgt: data/tgt-train.txt
+    valid:
+        path_src: data/src-dev.txt
+        path_tgt: data/tgt-dev.txt
+
+## Where the samples will be written
+save_data: processed/pg
+
+## Where the vocab(s) will be written
+src_vocab: processed/pg/vocab
+#tgt_vocab: processed/pg/vocab.tgt
+
+# Where to save the checkpoints
+save_model: saved/pg
+save_checkpoint_steps: 1000
+train_steps: 20000
+valid_steps: 1000
+report_every: 100
+
+encoder_type: brnn
+word_vec_size: 128
+rnn_size: 512
+layers: 1
+
+optim: adagrad
+learning_rate: 0.15
+adagrad_accumulator_init: 0.1
+max_grad_norm: 2
+
+src_seq_length: 1024
+tgt_seq_length: 256
+
+batch_size: 16
+dropout: 0.0
+
+copy_attn: 'true'
+global_attention: mlp
+reuse_copy_attn: 'true'
+bridge: 'true'
+
+# Train on a single GPU
+world_size: 4
+gpu_ranks:
+  - 0
+  - 1
+  - 2
+  - 3

@@ -6,11 +6,10 @@
 - 提交格式
 - 评价方法
 - 基线模型
-- 参考文献
 
 ### 任务定义
 
-**IMCS-SR** 任务的目标是从医患对话中 *同时预测症状的归一化标签和类别标签*，该任务的输入输出示例如下。
+**IMCS-SR** 任务的目标是从医患对话中同时预测症状的`归一化标签`和`类别标签`，组成一个键值对，该任务的输入输出示例如下。
 
 | Input（对话）                                          | Outputs （症状及其属性）      |
 |----------------------------------------------------|-----------------------|
@@ -27,10 +26,10 @@
         "咳嗽": "1",
         "发热": "0",
         "鼻流涕": "2"
+    }, 
+    "example_id2":{
+        ...
     }
-   	"example_id2":{
-   	...
-   	}
 ...
 }
 ```
@@ -40,25 +39,15 @@
 **IMCS-SR** 任务采用 **F1 score** 作为评价指标，详细见文件 `eval_task2.py`, 运行方式如下：
 
 ```shell
-python3 eval_task2.py {gold_data_path} {pred_data_path}
+python3 eval_task2.py --gold_path {gold_file_path} --pred_path {pred_file_path}
 ```
 
 ### 基线模型
 
-我们为 **IMCS-SR** 任务创建了 2 个基线模型，模型详情如下。
+我们为 **IMCS-SR** 任务创建了 2 个基线模型，详情如下。
 
-| Model | F1-score (%) | Link                                                              |
-|-------|--------------|-------------------------------------------------------------------|
-| MLC   | 67.99        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MLC |
-| MTL   | 69.86        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MTL |
+| Model    | F1-score (%) | Link                                                              |
+|----------|--------------|-------------------------------------------------------------------|
+| BERT-MLC | 64.52        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MLC |
+| BERT-MTL | 64.60        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MTL |
 
-### 参考文献
-
-```markdown
-@inproceedings{2019Enhancing,
-  title={Enhancing Dialogue Symptom Diagnosis with Global Attention and Symptom Graph},
-  author={X Lin and X He and Chen, Q. and Tou, H. and Chen, T.},
-  booktitle={Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)},
-  year={2019},
-}
-```

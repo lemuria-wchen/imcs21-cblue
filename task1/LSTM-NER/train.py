@@ -6,8 +6,8 @@ import random
 import json
 
 from model import MyModel
-from utils import DataProcessor_LSTM as DataProcessor
-from utils import DataProcessor_LSTM_Test as DataProcessor_Test
+from utils import DataProcessorLSTM as DataProcessor
+from utils import DataProcessorLSTMTest as DataProcessor_Test
 from utils import load_vocabulary
 from utils import compute_metrics
 
@@ -43,6 +43,7 @@ def init_logging(args):
     logger.info("random_seed: " + str(args.random_seed))
     logger.info("evaluate_steps: " + str(args.evaluate_steps))
 
+
 def get_vocab(args):
     """获得字典"""
     logger.info("loading vocab...")
@@ -55,6 +56,7 @@ def get_vocab(args):
         "i2w_bio": i2w_bio
     }
     return vocab_dict
+
 
 def get_feature_data(args, vocab_dict):
     """获得训练集和验证集"""
@@ -77,6 +79,7 @@ def get_feature_data(args, vocab_dict):
     )
     return data_processor_train, data_processor_valid
 
+
 def get_predict_feature_data(args, vocab_dict):
     """获取测试集数据"""
     logger.info("loading predict data...")
@@ -88,6 +91,7 @@ def get_predict_feature_data(args, vocab_dict):
         shuffling=False
     )
     return data_processor_test
+
 
 def build_model(args, vocab_dict):
     """初始化模型"""
@@ -110,11 +114,12 @@ def build_model(args, vocab_dict):
     logger.info("all params num: " + str(params_num_all))
     return model
 
+
 def evaluate(sess, model, data_processor, vocab_dict, max_batches=None, batch_size=1024):
     """验证/测试"""
-    chars_seq = [] # 文本序列
-    preds_seq = [] # 预测标签
-    golds_seq = [] # 真实标签
+    chars_seq = []  # 文本序列
+    preds_seq = []  # 预测标签
+    golds_seq = []  # 真实标签
     batches_sample = 0
 
     while True:
@@ -253,7 +258,8 @@ def train(tf_config, args, model, data_processor_train, data_processor_valid, vo
                 saver.save(sess, model_save_path)
                 logger.info("Path of model: {}".format(model_save_path))
 
-                (_, preds_seq, golds_seq) = evaluate(sess, model, data_processor_valid, vocab_dict, max_batches=100, batch_size=1024)
+                (_, preds_seq, golds_seq) = evaluate(sess, model, data_processor_valid, vocab_dict, max_batches=100,
+                                                     batch_size=1024)
                 results = compute_metrics(preds_seq, golds_seq)
                 p, r, f1 = results['precision'], results['recall'], results['f1']
                 logger.info("Valid Samples: {}".format(len(preds_seq)))
@@ -280,7 +286,8 @@ def predict(args, model, data_processor_test, vocab_dict):
         # saver = tf.train.import_meta_graph(meta_path)
         saver.restore(sess, ckpt_path)
 
-        (chars_seq, preds_seq, eids, sids) = predict_evaluate(sess, model, data_processor_test, vocab_dict, max_batches=100, batch_size=1024)
+        (chars_seq, preds_seq, eids, sids) = predict_evaluate(sess, model, data_processor_test, vocab_dict,
+                                                              max_batches=100, batch_size=1024)
         # results = compute_metrics(preds_seq, golds_seq)
         # p, r, f1 = results['precision'], results['recall'], results['f1']
         # logger.info("Test Samples: {}".format(len(preds_seq)))
@@ -306,22 +313,26 @@ def predict(args, model, data_processor_test, vocab_dict):
             json.dump(outputs, json_file, ensure_ascii=False, indent=4)
         print('=========end prediction===========')
 
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_dir', '-dd', type=str, default='data/ner_data', help='Train/dev data path')
-    parser.add_argument('--save_dir', '-sd', type=str, default='save_model', help='Path to save, load model')
-    parser.add_argument('--test_input_file', '-tif', type=str, default='../../dataset/test.json', help='Input file for prediction')
-    parser.add_argument('--test_output_file', '-tof', type=str, default='submission_track1_task1.json', help='Output file for prediction')
+    parser.add_argument('--data_dir', '-dd', type=str, default='ner_data', help='Train/dev data path')
+    parser.add_argument('--save_dir', '-sd', type=str, default='saved/lstm', help='Path to save, load model')
+    parser.add_argument('--test_input_file', '-tif', type=str, default='../../../dataset/test_input.json',
+                        help='Input file for prediction')
+    parser.add_argument('--test_output_file', '-tof', type=str, default='pred_lstm.json',
+                        help='Output file for prediction')
     parser.add_argument('--do_train', '-train', action='store_true', default=False, help='Whether to run training')
-    parser.add_argument('--do_predict', '-predict', action='store_true', default=False, help='Whether to run predicting')
+    parser.add_argument('--do_predict', '-predict', action='store_true', default=False,
+                        help='Whether to run predicting')
     parser.add_argument('--use_crf', '-crf', action='store_true', default=True, help='Whether to use CRF')
     parser.add_argument('--word_embedding_dim', '-wed', type=int, default=300, help='Word embedding dim')
     parser.add_argument('--encoder_hidden_dim', '-ehd', type=int, default=300, help='LSTM encoder hidden dim')
-    parser.add_argument('--num_epoch', '-ne', type=int, default=10, help='Total number of training epochs to perform')
-    parser.add_argument('--batch_size', '-bs', type=int, default=32, help='Batch size for trainging')
+    parser.add_argument('--num_epoch', '-ne', type=int, default=5, help='Total number of training epochs to perform')
+    parser.add_argument('--batch_size', '-bs', type=int, default=64, help='Batch size for trainging')
     parser.add_argument('--random_seed', '-rs', type=int, default=6, help='Random seed')
-    parser.add_argument('--evaluate_steps', '-ls', type=int, default=200, help='Evaluate every X updates steps')
+    parser.add_argument('--evaluate_steps', '-ls', type=int, default=1000, help='Evaluate every X updates steps')
 
     args = parser.parse_args()
 

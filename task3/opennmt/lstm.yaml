@@ -1,0 +1,47 @@
+# lstm.yaml
+data:
+    corpus_1:
+        path_src: data/src-train.txt
+        path_tgt: data/tgt-train.txt
+    valid:
+        path_src: data/src-dev.txt
+        path_tgt: data/tgt-dev.txt
+
+## Where the samples will be written
+save_data: processed/lstm
+
+## Where the vocab(s) will be written
+src_vocab: processed/lstm/vocab
+#tgt_vocab: processed/lstm/vocab.tgt
+
+share_vocab: TRUE
+
+src_seq_length: 1024
+tgt_seq_length: 256
+
+# Where to save the checkpoints
+save_model: saved/lstm
+save_checkpoint_steps: 1000
+train_steps: 20000
+valid_steps: 1000
+report_every: 100
+
+encoder_type: brnn
+word_vec_size: 128
+rnn_size: 512
+layers: 1
+
+optim: adagrad
+learning_rate: 0.15
+adagrad_accumulator_init: 0.1
+max_grad_norm: 2
+
+batch_size: 64
+dropout: 0.0
+
+world_size: 4
+gpu_ranks:
+  - 0
+  - 1
+  - 2
+  - 3

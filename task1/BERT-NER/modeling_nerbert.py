@@ -60,8 +60,6 @@ class NERBERT(BertPreTrainedModel):
                     seq_loss = seq_loss_fct(seq_logits.view(-1, self.num_seq_labels), seq_labels_ids.view(-1))
             total_loss += self.args.seq_loss_coef * seq_loss
 
-        outputs = ((seq_logits),) + outputs[2:]  # add hidden states and attention if they are here
-
+        outputs = (seq_logits,) + outputs[2:]  # add hidden states and attention if they are here
         outputs = (total_loss,) + outputs
-
         return outputs  # (loss), logits, (hidden_states), (attentions)

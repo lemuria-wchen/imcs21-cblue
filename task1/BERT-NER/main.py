@@ -27,13 +27,13 @@ if __name__ == '__main__':
 
     parser.add_argument("--task", default=None, required=True, type=str, help="The name of the task to train")
     parser.add_argument("--model_dir", default=None, required=True, type=str, help="Path to save, load model")
-    parser.add_argument("--data_dir", default="./data", type=str, help="The input data dir")
+    parser.add_argument("--data_dir", default="./", type=str, help="The input data dir")
     parser.add_argument("--seq_label_file", default="vocab_bio.txt", type=str, help="BIO Label file")
     parser.add_argument("--model_type", default="bert", type=str,
                         help="Model type selected in the list: " + ", ".join(MODEL_CLASSES.keys()))
     parser.add_argument('--seed', type=int, default=6, help="random seed for initialization")
-    parser.add_argument("--train_batch_size", default=32, type=int, help="Batch size for training.")
-    parser.add_argument("--eval_batch_size", default=64, type=int, help="Batch size for evaluation.")
+    parser.add_argument("--train_batch_size", default=128, type=int, help="Batch size for training.")
+    parser.add_argument("--eval_batch_size", default=128, type=int, help="Batch size for evaluation.")
     parser.add_argument("--max_seq_len", default=50, type=int,
                         help="The maximum total input sequence length after tokenization.")  # 最长的样本长度
     parser.add_argument("--learning_rate", default=5e-5, type=float, help="The initial learning rate for Adam.")
@@ -66,8 +66,8 @@ if __name__ == '__main__':
     parser.add_argument("--seq_pad_label", default="PAD", type=str,
                         help="Pad token for seq label pad (to be ignore when calculate loss)")
 
-    args = parser.parse_args()
+    _args = parser.parse_args()
+    _args.model_name_or_path = MODEL_PATH_MAP[_args.model_type]
+    print(_args.model_name_or_path)
 
-    args.model_name_or_path = MODEL_PATH_MAP[args.model_type]
-    print(args.model_name_or_path)
-    main(args)
+    main(_args)

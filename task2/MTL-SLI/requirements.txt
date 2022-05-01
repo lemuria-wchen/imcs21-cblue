@@ -1,0 +1,4 @@
+transformers==4.5.1
+pandas==1.2.0
+numpy==1.19.2
+sklearn
