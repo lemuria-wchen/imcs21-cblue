@@ -98,7 +98,8 @@ def ner_eval(gold_data, pred_data):
         round(token_p, 4), round(token_r, 4), round(token_f1, 4),
     ))
     # 在 CBLEU 评测中，我们以实体级 F1 score 作为评价指标（overall_f1）
-    return sx_f1, dn_f1, dc_f1, ex_f1, op_f1, overall_f1, token_p, token_r, token_f1
+    # return sx_f1, dn_f1, dc_f1, ex_f1, op_f1, overall_f1, token_p, token_r, token_f1
+    return overall_f1
 
 
 if __name__ == "__main__":

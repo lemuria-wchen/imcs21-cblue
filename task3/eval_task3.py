@@ -49,8 +49,10 @@ def compute_rouges(sources, targets):
         score = compute_rouge(source, target)
         for k, v in scores.items():
             scores[k] = v + score[k]
-    print({k: v / len(targets) for k, v in scores.items()})
+    results = {k: v / len(targets) for k, v in scores.items()}
+    print(results)
     # 在 CBLEU 评测中，我们使用 rouge-1, rouge-2 和 rouge-l 的平均值作为评价指标
+    return (results['rouge-1'] + results['rouge-2'] + results['rouge-l']) / 3
 
 
 if __name__ == '__main__':

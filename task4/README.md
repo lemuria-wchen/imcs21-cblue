@@ -49,8 +49,9 @@ python3 eval_task4.py --gold_path {gold_file_path} --pred_path {pred_file_path}
 | Model    | Acc    | Link                                                                   |
 |----------|--------|------------------------------------------------------------------------|
 | TextCNN  | 0.7893 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task4/DNN-DAC  |
-| TextRNN	 | 0.7846 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task4/DNN-DAC |
-| TextRCNN | 0.7949 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3/DNN-DAC |
-| DPCNN	   | 0.7791 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3/DNN-DAC |
+| TextRNN	 | 0.7846 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task4/DNN-DAC  |
+| TextRCNN | 0.7949 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3/DNN-DAC  |
+| DPCNN	   | 0.7791 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3/DNN-DAC  |
 | BERT	    | 0.8165 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3/BERT-DAC |
 | ERNIE	   | 0.8191 | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task3/BERT-DAC |
+

@@ -26,7 +26,7 @@ def dac_eval(gold_data, pred_data, digits=4):
     print('P: {}, R: {}, F1: {}, Acc: {}'.format(
         round(p, digits), round(r, digits), round(f1, digits), round(acc, digits)))
     # 在 CBLEU 评测中，我们以准确率作为评价指标 (Acc)
-    return p, r, f1, acc
+    return acc
 
 
 if __name__ == "__main__":
