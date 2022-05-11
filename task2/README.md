@@ -46,8 +46,8 @@ python3 eval_task2.py --gold_path {gold_file_path} --pred_path {pred_file_path}
 
 我们为 **IMCS-SR** 任务创建了 2 个基线模型，详情如下。
 
-| Model    | F1-score (%) | Link                                                              |
-|----------|--------------|-------------------------------------------------------------------|
-| BERT-MLC | 64.52        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MLC |
-| BERT-MTL | 64.60        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MTL |
+| Model    | F1-score (%) | Link                                                                  |
+|----------|--------------|-----------------------------------------------------------------------|
+| BERT-MLC | 64.52        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MLC-SLI |
+| BERT-MTL | 64.60        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MTL-SLI |
 
