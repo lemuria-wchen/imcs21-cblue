@@ -2,7 +2,7 @@
 
 This dir contains the code of **ProphetNet** model for MRG task. 
 
-The code is adapted from https://github.com/microsoft/ProphetNet/tree/master/ProphetNet_Dialog_Zh. 
+The code is adapted from https://github.com/microsoft/ProphetNet/tree/master/ProphetNet_Zh. 
 
 The details are described in [ProphetNet-X paper](https://arxiv.org/abs/2104.08006).
 
