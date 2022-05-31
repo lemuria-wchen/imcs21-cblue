@@ -41,8 +41,8 @@ def multi_label_metric(golds, preds):
     print('Hamming loss: {}'.format(hamming_loss(golds, preds)))
     print('Hamming score: {}'.format(hamming_score(golds, preds)))
     # Label-based Metrics
-    print('micro Precision: {}'.format(recall_score(y_true=golds, y_pred=preds, average='micro', zero_division=0)))
-    print('micro Recall: {}'.format(precision_score(y_true=golds, y_pred=preds, average='micro', zero_division=0)))
+    print('micro Recall: {}'.format(recall_score(y_true=golds, y_pred=preds, average='micro', zero_division=0)))
+    print('micro Precision: {}'.format(precision_score(y_true=golds, y_pred=preds, average='micro', zero_division=0)))
     print('micro F1: {}'.format(f1_score(y_true=golds, y_pred=preds, average='micro', zero_division=0)))
     # 在 CBLEU 评测中，我们标签级 F1 score 作为评价指标（micro F1）
     return f1_score(y_true=golds, y_pred=preds, average='micro', zero_division=0)
