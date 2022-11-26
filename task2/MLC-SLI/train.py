@@ -5,45 +5,44 @@ from sklearn import metrics
 from torch.utils.data import DataLoader
 from transformers import BertTokenizer
 from torch.utils.data.sampler import WeightedRandomSampler
-from utils import CustomDataset, BERTClass, load_json
+from utils import CustomDataset, BERTClass, load_json, load_json_by_line, collate_fn
 import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--target", default='exp', required=True, type=str)
-parser.add_argument("--cuda_num", default='1', required=True, type=str)
+parser.add_argument("--target", default='imp', required=True, type=str)
 args = parser.parse_args()
 
-device = 'cuda:{}'.format(args.cuda_num) if torch.cuda.is_available() else 'cpu'
-torch.manual_seed(12345)
+# args.target = 'exp'
 
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 # load train/dev set
 prefix = 'data'
-# model_prefix = './saved/{}'.format(args.target)
+train = load_json_by_line(os.path.join(prefix, args.target, 'train.json'))
+dev = load_json_by_line(os.path.join(prefix, args.target, 'dev.json'))
+
+data_dir = '../../../dataset'
+mappings_path = os.path.join(data_dir, 'V3/mappings.json')
+sym2id, _, _, _, sl2id, _ = load_json(mappings_path)
+num_labels = len(sym2id) if args.target == 'exp' else len(sym2id) * len(sl2id)
+
 model_prefix = os.path.join('saved', args.target)
-
 os.makedirs(model_prefix, exist_ok=True)
-
-train = load_json(os.path.join(prefix, args.target, 'train.json'))
-dev = load_json(os.path.join(prefix, args.target, 'dev.json'))
-
-with open('../../../dataset/symptom_norm.csv', 'r') as f:
-    num_labels = len(f.readlines()) - 1
-
 
 # Defining some key variables that will be used later on in the training
 model_name = 'bert-base-chinese'
-MAX_LEN = 128
-TRAIN_BATCH_SIZE = 32
+# model_name = 'hfl/chinese-bert-wwm-ext'
+MAX_LEN = 256 if args.target == 'exp' else 128
+TRAIN_BATCH_SIZE = 64
 VALID_BATCH_SIZE = 64
-EPOCHS = 500 if args.target == 'exp' else 50
+EPOCHS = 100 if args.target == 'exp' else 50
 LEARNING_RATE = 1e-5
 
 tokenizer = BertTokenizer.from_pretrained(model_name)
 
-train_set = CustomDataset(train, tokenizer, MAX_LEN)
-dev_set = CustomDataset(dev, tokenizer, MAX_LEN)
+train_set = CustomDataset(train, tokenizer, MAX_LEN, num_labels)
+dev_set = CustomDataset(dev, tokenizer, MAX_LEN, num_labels)
 
 train_params = {
     'batch_size': TRAIN_BATCH_SIZE,
@@ -57,14 +56,16 @@ dev_params = {
     'num_workers': 1
 }
 
-weights = [sample[3] for sample in train]
+weights = [sample['weight'] for sample in train]
 sampler = WeightedRandomSampler(weights, num_samples=len(weights), replacement=True)
 
-# train_loader = DataLoader(train_set, sampler=sampler, **train_params)
-train_loader = DataLoader(train_set, **train_params)
-dev_loader = DataLoader(dev_set, **dev_params)
+if args.target == 'exp':
+    train_loader = DataLoader(train_set, collate_fn=collate_fn, **train_params)
+else:
+    train_loader = DataLoader(train_set, sampler=sampler, collate_fn=collate_fn, **train_params)
+dev_loader = DataLoader(dev_set, collate_fn=collate_fn, **dev_params)
 
-model = BERTClass(model_name, num_labels, args.target)
+model = BERTClass(model_name, num_labels)
 model.to(device)
 
 optimizer = torch.optim.Adam(params=model.parameters(), lr=LEARNING_RATE)
@@ -75,7 +76,8 @@ def loss_fn(outputs, targets):
 
 
 def train_epoch(_epoch):
-    for _, data in enumerate(train_loader):
+    for step, data in enumerate(train_loader):
+        # break
         ids = data['ids'].to(device, dtype=torch.long)
         mask = data['mask'].to(device, dtype=torch.long)
         token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
@@ -84,6 +86,10 @@ def train_epoch(_epoch):
         loss = loss_fn(outputs, targets)
         optimizer.zero_grad()
         loss.backward()
+        # if step % 10 == 0:
+        #     print('step: {}, loss: {}'.format(
+        #         step, loss.item()
+        #     ))
         optimizer.step()
 
 
@@ -112,6 +118,7 @@ print('total steps: {}'.format(len(train_loader) * EPOCHS))
 best_micro_f1 = -1
 
 for epoch in range(EPOCHS):
+    # break
     model.train()
     train_epoch(epoch)
     model.eval()
