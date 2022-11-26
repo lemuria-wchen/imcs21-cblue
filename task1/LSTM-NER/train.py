@@ -329,7 +329,7 @@ if __name__ == "__main__":
     parser.add_argument('--use_crf', '-crf', action='store_true', default=True, help='Whether to use CRF')
     parser.add_argument('--word_embedding_dim', '-wed', type=int, default=300, help='Word embedding dim')
     parser.add_argument('--encoder_hidden_dim', '-ehd', type=int, default=300, help='LSTM encoder hidden dim')
-    parser.add_argument('--num_epoch', '-ne', type=int, default=5, help='Total number of training epochs to perform')
+    parser.add_argument('--num_epoch', '-ne', type=int, default=10, help='Total number of training epochs to perform')
     parser.add_argument('--batch_size', '-bs', type=int, default=64, help='Batch size for trainging')
     parser.add_argument('--random_seed', '-rs', type=int, default=6, help='Random seed')
     parser.add_argument('--evaluate_steps', '-ls', type=int, default=1000, help='Evaluate every X updates steps')

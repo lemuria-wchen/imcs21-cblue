@@ -14,7 +14,8 @@ def save_data(samples, input_fn, output_fn2):
     for pid, sample in samples.items():
         for item in sample['dialogue']:
             sent = list(item['speaker'] + '：' + item['sentence'])
-            bio = ['O'] * 3 + item['BIO_label'].split(' ')
+            # bio = ['O'] * 3 + item['BIO_label'].split(' ')
+            bio = ['O'] * 3 + item['new_BIO_label'].split(' ')
             assert len(sent) == len(bio)
             seq_in.append(sent)
             seq_bio.append(bio)
@@ -80,8 +81,8 @@ if __name__ == "__main__":
 
     data_dir = '../../../dataset'
     # data_dir = 'dataset'
-    train_set = load_json(os.path.join(data_dir, 'train.json'))
-    dev_set = load_json(os.path.join(data_dir, 'dev.json'))
+    train_set = load_json(os.path.join(data_dir, 'V2/train_update.json'))
+    dev_set = load_json(os.path.join(data_dir, 'V2/train_update.json'))
 
     saved_dir = 'ner_data'
     if not os.path.exists(saved_dir):
