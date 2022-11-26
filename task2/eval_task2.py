@@ -67,21 +67,30 @@ if __name__ == '__main__':
     pred_data = load_json(args.pred)
 
     # load normalized symptom（需要导入标准化症状）
-    sn_path = 'symptom_norm.csv'
-    sym2id = {value: key for key, value in pd.read_csv(sn_path)['norm'].items()}
+    # sn_path = 'symptom_norm.csv'
+    # sym2id = {value: key for key, value in pd.read_csv(sn_path)['norm'].items()}
+    # num_labels = len(sym2id)
+    
+    # load normalized symptom
+    mappings_path = 'mappings.json'
+    sym2id, _, _, _, _, _ = load_json(mappings_path)
     num_labels = len(sym2id)
 
-    golds_sx, preds_sx = [], []
-    gold_labels, pred_labels = [], []
+
+    golds_full, preds_full = [], []
+    # gold_labels, pred_labels = [], []
     for pid, sample in gold_data.items():
-        gold = sample['implicit_info']['Symptom']
-        pred = pred_data.get(pid)
-        golds_sx.append(make_label(gold, target='exp'))
-        preds_sx.append(make_label(pred, target='exp'))
-        for sx in gold:
-            if sx in pred:
-                gold_labels.append(gold.get(sx))
-                pred_labels.append(pred.get(sx))
-    golds_sx, preds_sx = np.array(golds_sx), np.array(preds_sx)
+        # gold = sample['implicit_info']['Symptom']
+        gold = sample['global_implicit_info']
+        pred = pred_data.get(pid)['global']
+        # golds_sx.append(make_label(gold, target='imp'))
+        # preds_sx.append(make_label(pred, target='imp'))
+        golds_full.append(make_label(gold, target='imp'))
+        preds_full.append(make_label(pred, target='imp'))
+        #for sx in gold:
+        #    if sx in pred:
+        #        gold_labels.append(gold.get(sx))
+        #        pred_labels.append(pred.get(sx))
+    golds_full, preds_full = np.array(golds_full), np.array(preds_full)
     print('-- SR task evaluation --')
-    multi_label_metric(golds_sx, preds_sx)
+    multi_label_metric(golds_full, preds_full)
