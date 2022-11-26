@@ -76,21 +76,31 @@ if __name__ == '__main__':
     sym2id, _, _, _, _, _ = load_json(mappings_path)
     num_labels = len(sym2id)
 
-
+    print('---- dialogue level ----')
     golds_full, preds_full = [], []
     # gold_labels, pred_labels = [], []
     for pid, sample in gold_data.items():
-        # gold = sample['implicit_info']['Symptom']
         gold = sample['global_implicit_info']
         pred = pred_data.get(pid)['global']
-        # golds_sx.append(make_label(gold, target='imp'))
-        # preds_sx.append(make_label(pred, target='imp'))
         golds_full.append(make_label(gold, target='imp'))
         preds_full.append(make_label(pred, target='imp'))
-        #for sx in gold:
-        #    if sx in pred:
-        #        gold_labels.append(gold.get(sx))
-        #        pred_labels.append(pred.get(sx))
+
+    golds_full, preds_full = np.array(golds_full), np.array(preds_full)
+    print('-- SR task evaluation --')
+    multi_label_metric(golds_full, preds_full)
+    
+    print('---- utterance level ----')
+    # utterance level
+    golds_full, preds_full = [], [], [], []
+    gold_labels, pred_labels = [], []
+    for pid, sample in gold_data.items():
+        for sent in sample['dialogue']:
+            sid = sent['sentence_id']
+            gold = sent['local_implicit_info']
+            pred = pred_data.get(pid).get(sid)
+            golds_full.append(make_label(gold, target='imp'))
+            preds_full.append(make_label(pred, target='imp'))
+
     golds_full, preds_full = np.array(golds_full), np.array(preds_full)
     print('-- SR task evaluation --')
     multi_label_metric(golds_full, preds_full)
