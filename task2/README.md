@@ -18,14 +18,15 @@
 
 ### 提交格式
 
-**IMCS-SR** 任务要求提交文件为 **json** 格式，具体格式如下。
+**IMCS-SR** 任务要求提交文件为 **json** 格式，具体格式如下。对于测试集每个样本，我们需要预测每个句子的局部标签，以及全局标签。
 
 ```
 {
-    "example_id1": { # 测试集样本id
-        "咳嗽": "1",
-        "发热": "0",
-        "鼻流涕": "2"
+    "pid": { # 测试集样本id
+        "1": {"咳嗽": "1", "发热": "0"}
+        "2": {""鼻流涕": "2"}
+        ...
+        "global": {"咳嗽": "1", "发热": "0", "鼻流涕": "2"}
     }, 
     "example_id2":{
         ...
@@ -46,8 +47,18 @@ python3 eval_task2.py --gold_path {gold_file_path} --pred_path {pred_file_path}
 
 我们为 **IMCS-SR** 任务创建了 2 个基线模型，详情如下。
 
-| Model    | F1-score (%) | Link                                                                  |
-|----------|--------------|-----------------------------------------------------------------------|
-| BERT-MLC | 64.52        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MLC-SLI |
-| BERT-MTL | 64.60        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MTL-SLI |
+| Model    | Utterance-level F1-score (%) | Dialog-level F1-score (%) | Link                                                                  |
+|----------|------------------------------|---------------------------|-----------------------------------------------------------------------|
+| BERT-MLC | 69.03                        | 67.49                     | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MLC-SLI |
+| BERT-MTL | 67.57                        | 66.91                     | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MTL-SLI |
 
+
+[//]: # (| Model    | F1-score &#40;%&#41; | Link                                                                  |)
+
+[//]: # (|----------|--------------|-----------------------------------------------------------------------|)
+
+[//]: # (| BERT-MLC | 64.52        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MLC-SLI |)
+
+[//]: # (| BERT-MTL | 64.60        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task2/MTL-SLI |)
+
+[//]: # ()
