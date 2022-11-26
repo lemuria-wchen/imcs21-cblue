@@ -53,6 +53,6 @@ python3 eval_task1.py --gold_path {gold_file_path} --pred_path {pred_file_path}
 
 | Model      | F1-score (%) | Link                                                                     |
 |------------|--------------|--------------------------------------------------------------------------|
-| LSTM-NER   | 90.10        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1/LSTM-NER   |
-| BERT-NER   | 90.64        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1/BERT-NER   |
+| LSTM-NER   | 86.02        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1/LSTM-NER   |
+| BERT-NER   | 87.30        | https://github.com/lemuria-wchen/imcs21-cblue/tree/main/task1/BERT-NER   |
 
