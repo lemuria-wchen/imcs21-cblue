@@ -80,7 +80,7 @@ if __name__ == '__main__':
     golds_full, preds_full = [], []
     # gold_labels, pred_labels = [], []
     for pid, sample in gold_data.items():
-        gold = sample['global_implicit_info']
+        gold = sample['implicit_info']['Symptom']
         pred = pred_data.get(pid)['global']
         golds_full.append(make_label(gold, target='imp'))
         preds_full.append(make_label(pred, target='imp'))
