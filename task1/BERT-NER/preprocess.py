@@ -14,8 +14,8 @@ def save_data(samples, input_fn, output_fn2):
     for pid, sample in samples.items():
         for item in sample['dialogue']:
             sent = list(item['speaker'] + '：' + item['sentence'])
-            # bio = ['O'] * 3 + item['BIO_label'].split(' ')
-            bio = ['O'] * 3 + item['new_BIO_label'].split(' ')
+            bio = ['O'] * 3 + item['BIO_label'].split(' ')
+            # bio = ['O'] * 3 + item['new_BIO_label'].split(' ')
             assert len(sent) == len(bio)
             seq_in.append(sent)
             seq_bio.append(bio)
