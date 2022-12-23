@@ -21,9 +21,9 @@ def make_dataset(samples, num_contexts=1, mode='train', delimiter='｜'):
                 utt = diag[j]['speaker'] + '：' + diag[j]['sentence']
                 utts_lens.append(len(utt))
                 if mode != 'test':
-                    s_names.extend(diag[j]['new_symptom_norm'])
-                    s_labels.extend(diag[j]['new_symptom_type'])
-                    bio_tag = ['O'] * 3 + diag[j]['new_BIO_label'].split()
+                    s_names.extend(diag[j]['symptom_norm'])
+                    s_labels.extend(diag[j]['symptom_type'])
+                    bio_tag = ['O'] * 3 + diag[j]['BIO_label'].split()
                     assert len(utt) == len(bio_tag)
                 else:
                     bio_tag = []
