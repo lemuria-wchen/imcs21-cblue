@@ -241,19 +241,22 @@ norm
 
 #### 映射字典（optional，第二版）
 
-文件名为为 `symptom_norm.csv`，归一化后的症状词典，**本仓库部分基线代码依赖该文件**，其格式如下。
+文件名为为 `mappings.json`，**本仓库部分基线代码依赖该文件**，其读取代码如下。
 
-```
-norm
-咳嗽
-发热
-感冒
-...
+```python
+
+with open('mappings.json', 'r', encoding='utf-8') as f:
+    sym2id, id2sym, bio2id, id2bio, sl2id, id2sl = load_json(mappings_path)
+
+# 其中 sym2id 和 id2sym 分别是 症状 到 症状id 和 症状id 到 症状的映射；
+# bio2id 和 id2bio 分别是 BIO-tag 到 BIO-tag id 和 BIO-tag id 到 BIO-tag 的映射；
+# sl2id 和 id2sl 分别是 症状标签 到 症状标签-id 和 症状标签-id 到 症状标签 的映射。
+bio2id, id2bio, sl2id, id2sl 
 ```
 
 ### 引用
 
-如果您扩展或使用这项工作，请引用介绍它的[论文](https://arxiv.org/abs/2204.08997)。
+如果您扩展或使用这项工作，请引用介绍它的[论文](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btac817/6947983)。
 
 ```
 @article{chen2022benchmark,
