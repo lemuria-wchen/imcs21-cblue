@@ -92,7 +92,7 @@ if __name__ == '__main__':
     
     print('---- utterance level ----')
     # utterance level
-    golds_full, preds_full = [], [], [], []
+    golds_full, preds_full = [], []
     gold_labels, pred_labels = [], []
     for pid, sample in gold_data.items():
         for sent in sample['dialogue']:
