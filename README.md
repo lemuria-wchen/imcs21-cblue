@@ -251,7 +251,6 @@ with open('mappings.json', 'r', encoding='utf-8') as f:
 # 其中 sym2id 和 id2sym 分别是 症状 到 症状id 和 症状id 到 症状的映射；
 # bio2id 和 id2bio 分别是 BIO-tag 到 BIO-tag id 和 BIO-tag id 到 BIO-tag 的映射；
 # sl2id 和 id2sl 分别是 症状标签 到 症状标签-id 和 症状标签-id 到 症状标签 的映射。
-bio2id, id2bio, sl2id, id2sl 
 ```
 
 ### 引用
@@ -259,10 +258,15 @@ bio2id, id2bio, sl2id, id2sl
 如果您扩展或使用这项工作，请引用介绍它的[论文](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btac817/6947983)。
 
 ```
-@article{chen2022benchmark,
-  title={A Benchmark for Automatic Medical Consultation System: Frameworks, Tasks and Datasets},
-  author={Chen, Wei and Li, Zhiwei and Fang, Hongyi and Yao, Qianyuan and Zhong, Cheng and Hao, Jianye and Zhang, Qi and Huang, Xuanjing and Wei, Zhongyu and others},
-  journal={arXiv preprint arXiv:2204.08997},
-  year={2022}
+@article{10.1093/bioinformatics/btac817,
+    author = {Chen, Wei and Li, Zhiwei and Fang, Hongyi and Yao, Qianyuan and Zhong, Cheng and Hao, Jianye and Zhang, Qi and Huang, Xuanjing and Peng, Jiajie and Wei, Zhongyu},
+    title = "{A Benchmark for Automatic Medical Consultation System: Frameworks, Tasks and Datasets}",
+    journal = {Bioinformatics},
+    year = {2022},
+    month = {12},
+    doi = {10.1093/bioinformatics/btac817},
+    url = {https://doi.org/10.1093/bioinformatics/btac817},
+    note = {btac817},
+    eprint = {https://academic.oup.com/bioinformatics/advance-article-pdf/doi/10.1093/bioinformatics/btac817/48290490/btac817.pdf},
 }
 ```
