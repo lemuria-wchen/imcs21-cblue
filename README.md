@@ -11,10 +11,10 @@
 
 ### 更新
 
-- IMCS21 数据集已更正部分标签，包括命名实体、症状标签等。（新增了`new_symptom_norm`、`new_symptom_type`、`local_implicit_info`、`global_implicit_info`四个字段。）
+- IMCS21 数据集已更正部分标签，包括命名实体、症状标签等，并新增了`local_implicit_info`一个字段。
 - IMCS21 数据集已更新，添加了 4 种疾病，覆盖了 10 种️疾病，共 4,116 条样本。新版本评测仓库更新了每个任务的评价脚本，同时也更新了基线代码。欢迎大家来 CBLUE 打榜！ 
 
-**注意**：对 IMCS21 新版数据集的详细介绍请参考我们的论文 [A Benchmark for Automatic Medical Consultation System: Frameworks, Tasks and Datasets](https://arxiv.org/abs/2204.08997)，以及对应的代码仓库 [https://github.com/lemuria-wchen/imcs21](https://github.com/lemuria-wchen/imcs21)。 
+**注意**：对 IMCS21 新版数据集的详细介绍请参考我们发表在生物信息领域期刊Bioinformatics 2022上的论文 [A Benchmark for Automatic Medical Consultation System: Frameworks, Tasks and Datasets](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btac817/6947983)，以及对应的代码仓库 [https://github.com/lemuria-wchen/imcs21](https://github.com/lemuria-wchen/imcs21)。 
 
 ### 背景介绍
 
@@ -104,7 +104,7 @@
 
 | 症状标签  | Symptom Labels | Details                                                     |
 |-------|----------------|-------------------------------------------------------------|
-| 归一化标签 | symptom_norm   | 从 *BIO* 标签中提取的 **1,900** 多个症状中标准化得到 **331** 个标准化症状名称。       |
+| 归一化标签 | symptom_norm   | 从 *BIO* 标签中提取的 **1,900** 多个症状中标准化得到 **444** 个标准化症状名称。       |
 | 类别标签  | symptom_type   | "0" 代表确定病人没有患有该症状，"1" 代表确定病人患有该症状，"2" 代表无法根据上下文确定病人是否患有该症状。 |
 
 
@@ -141,12 +141,10 @@
           "speaker":		        # 医生或者患者
           "sentence":		        # 当前对话文本内容
           "dialogue_act":	        # 话语行为
-          "BIO_label":	            # BIO实体标签（以“空格”连接）
-          "symptom_norm":	        # 归一化的症状（与BIO中的症状出现的顺序对应）
-          "symptom_type":	        # 症状类别（与BIO中的症状出现的顺序对应）
-          "new_symptom_norm":       # 新归一化的症状（与BIO中的症状出现的顺序对应）
-          "new_symptom_type":       # 新症状类别（与BIO中的症状出现的顺序对应）
-          "local_implicit_info":    # 每句话中包含的"症状-标签"字典（由 new_symptom_norm 和 new_symptom_type 构建，规则如下，如果一个句子中出现相同的两个 new_symptom_norm，则 new_symptom_type 的优先级为：'1' > '0' > '2'，即，如果在同一个句子中，相同的 new_symptom_norm 由多个不同的 new_symptom_type，我们仅按照优先级保留其中的一个 new_symptom_type，这也是用户需要预测的结果）    
+          "BIO_label":	            # BIO实体标签（以“空格”连接）（第二版已修正部分错误标签）
+          "symptom_norm":	        # 归一化的症状（与BIO中的症状出现的顺序对应）（第二版已修正部分错误标签）
+          "symptom_type":	        # 症状类别（与BIO中的症状出现的顺序对应）（第二版已修正部分错误标签）
+          "local_implicit_info":    # 每句话中包含的"症状-标签"字典（由 symptom_norm 和 symptom_type 构建，规则如下，如果一个句子中出现相同的两个 symptom_norm，则 symptom_type 的优先级为：'1' > '0' > '2'，即，如果在同一个句子中，相同的 symptom_norm 有多个不同的 symptom_type，我们仅按照优先级保留其中的一个 symptom_type，这也是用户需要预测的结果）    
         },
         {	
           "sentence_id":
@@ -156,8 +154,6 @@
           "BIO_label":
           "symptom_norm":	
           "symptom_type":
-          "new_symptom_norm":
-          "new_symptom_type":
           "local_implicit_info":  
         },
         ...
@@ -184,11 +180,8 @@
           "Symptom": 	            # 患者自我报告中的症状，列表格式，值为症状的归一化标签
       }         
       "implicit_info":{
-          "Symptom": 	            # 基于整组对话推断得到的症状标签，字典格式，键为症状的归一化标签，值为症状的类别标签
+          "Symptom": 	            # 基于整组对话推断得到的症状标签，字典格式，键为症状的归一化标签，值为症状的类别标签（第二版已修正部分错误标签）
       } 
-      `global_implicit_info`: {
-                                    # 新的基于整组对话推断得到的症状标签，字典格式，键为症状的归一化标签，值为症状的类别标签     
-      }
   }
   "example_id2":{
       ...
@@ -234,7 +227,19 @@
 
 文件名为为 `test.json`，共 **811** 条样本，其格式同训练集与验证集。
 
-#### 归一化的症状词典（optional）
+#### 归一化的症状词典（optional，第一版）
+
+文件名为为 `symptom_norm.csv`，归一化后的症状词典，**本仓库部分基线代码依赖该文件**，其格式如下。
+
+```
+norm
+咳嗽
+发热
+感冒
+...
+```
+
+#### 映射字典（optional，第二版）
 
 文件名为为 `symptom_norm.csv`，归一化后的症状词典，**本仓库部分基线代码依赖该文件**，其格式如下。
 
