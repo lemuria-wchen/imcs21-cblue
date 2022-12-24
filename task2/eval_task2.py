@@ -27,7 +27,8 @@ def make_label(symptoms, target):
     return label
 
 
-def hamming_score(golds, preds):
+def hamming_score(
+    s, preds):
     assert len(golds) == len(preds)
     out = np.ones(len(golds))
     n = np.logical_and(golds, preds).sum(axis=1)
@@ -63,8 +64,8 @@ if __name__ == '__main__':
     parser.add_argument("--pred_path", required=True, type=str)
     args = parser.parse_args()
 
-    gold_data = load_json(args.gold)
-    pred_data = load_json(args.pred)
+    gold_data = load_json(args.gold_path)
+    pred_data = load_json(args.pred_path)
 
     # load normalized symptom（需要导入标准化症状）
     # sn_path = 'symptom_norm.csv'
