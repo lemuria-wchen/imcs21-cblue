@@ -244,9 +244,10 @@ norm
 文件名为为 `mappings.json`，**本仓库部分基线代码依赖该文件**，其读取代码如下。
 
 ```python
+import json
 
 with open('mappings.json', 'r', encoding='utf-8') as f:
-    sym2id, id2sym, bio2id, id2bio, sl2id, id2sl = load_json(mappings_path)
+    sym2id, id2sym, bio2id, id2bio, sl2id, id2sl = json.load(mappings_path)
 
 # 其中 sym2id 和 id2sym 分别是 症状 到 症状id 和 症状id 到 症状的映射；
 # bio2id 和 id2bio 分别是 BIO-tag 到 BIO-tag id 和 BIO-tag id 到 BIO-tag 的映射；
